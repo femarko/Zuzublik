@@ -2,3 +2,4 @@ venv_zuzublik/
 .env
 __pycache__/
 .idea/
+.coverage
