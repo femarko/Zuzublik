@@ -19,5 +19,6 @@ def test_create_table(do_mapping):
     db_path = pathlib.Path(__file__).parent.parent / "app/db/zuzu.db"
     table_mapper.metadata.create_all(engine)
     conn = sqlite3.connect(f"{db_path}")
-    res = conn.execute("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'zuzublik';")
-    assert res.fetchall() == [('zuzublik',)]
+    res = conn.execute("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'zuzublik';").fetchall()
+    conn.close()
+    assert res == [('zuzublik',)]
