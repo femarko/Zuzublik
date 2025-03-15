@@ -14,7 +14,3 @@ def parse_table(table_file, fields: Optional[Iterable] = None):
         for column in df.columns:
             result |= {column: df[column][row_index]}
     return result
-
-if __name__ == "__main__":
-    print(parse_table(file_path))
-
