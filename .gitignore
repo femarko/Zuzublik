@@ -3,3 +3,4 @@ venv_zuzublik/
 __pycache__/
 .idea/
 .coverage
+app/db/zuzu.db
