@@ -9,7 +9,7 @@ zuz_table = table_conf.table(
     table_conf.column("title", table_conf.str_field(200), index=True, nullable=False),
     table_conf.column("url", table_conf.str_field(200), index=True, nullable=False),
     table_conf.column("xpath", table_conf.str_field(200), index=True, nullable=False),
-    table_conf("creation_date", table_conf.datetime_field, server_default=table_conf.func_field.now())
+    table_conf.column("creation_date", table_conf.datetime_field, server_default=table_conf.now(), nullable=False)
 )
 
 

@@ -1,5 +1,5 @@
 from app.domain import models
-from app.side_services.parser import parse_table
+from app.auxiliary_services.parser import parse_table
 
 
 def add_zuzublik(file, parser, validator, uow) -> int:

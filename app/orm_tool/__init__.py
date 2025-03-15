@@ -1,4 +1,5 @@
 import dataclasses
+import pathlib
 from sqlalchemy import (
     create_engine,
     Table,
@@ -9,13 +10,14 @@ from sqlalchemy import (
     func,
     orm
 )
-
 import app.config
 
+db_path = pathlib.Path(__file__).parent.parent / "db/zuzu.db"
 
-engine = create_engine(app.config.config.get("database_url"))
+engine = create_engine(f"sqlite:///{db_path}")
 session_maker = orm.sessionmaker(bind=engine)
 table_mapper = orm.registry()
+
 
 @dataclasses.dataclass
 class TableConf:
@@ -24,7 +26,6 @@ class TableConf:
     int_field = Integer
     str_field = String
     datetime_field = DateTime
-    func_field = func
+    now = func.now
 
 table_conf = TableConf()
-
