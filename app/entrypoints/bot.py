@@ -4,7 +4,7 @@ import app.config
 from app.service_layer import app_manager
 from app.auxiliary_services import parser, validation
 from app.service_layer.unit_of_work import UnitOfWork
-from app.orm_tool import orm_conf
+from app.orm_tool.sql_aclchemy_wrapper import orm_conf
 
 orm_conf.start_mapping()
 

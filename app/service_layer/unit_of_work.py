@@ -1,4 +1,5 @@
-from app.orm_tool import table_mapper, orm_conf
+import app.orm_tool.sql_aclchemy_wrapper
+from app.orm_tool.sql_aclchemy_wrapper import orm_conf
 
 import app.domain.errors
 from app.repository.repository import RepoProto, ZuzublikRepository
