@@ -1,6 +1,9 @@
 import telebot
 
 import app.config
+from app.service_layer import app_manager
+from app.auxiliary_services import parser
+
 
 bot = telebot.TeleBot(app.config.config["bot_token"])
 
@@ -26,8 +29,8 @@ def handle_file(message):
     file_id = message.document.file_id
     file = bot.get_file(file_id)
     downloaded_file = bot.download_file(file.file_path)
-    bot.send_message(message.chat.id, 'File uploaded successfully!')
-
+    parsed_result = parser.parse_table(table_file=downloaded_file)
+    bot.send_message(message.chat.id, text=f'You uploaded the folowing data: {parsed_result}.')
 
 
 bot.polling(none_stop=True)
