@@ -1,17 +1,16 @@
-from sqlalchemy.exc import IntegrityError
+from app.orm_tool import table_mapper, orm_conf
 
 import app.domain.errors
-from app.orm_tool import session_maker
 from app.repository.repository import RepoProto, ZuzublikRepository
 
 
 class UnitOfWork:
     def __init__(self):
-        self.session_maker = session_maker
+        self.session_maker = orm_conf.session_maker
 
     def __enter__(self):
         self.session = self.session_maker()
-        self.zuzu: RepoProto = ZuzublikRepository(session=self.session)
+        self.zuzublik_repo: RepoProto = ZuzublikRepository(session=self.session)
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -26,5 +25,5 @@ class UnitOfWork:
     def commit(self):
         try:
             self.session.commit()
-        except IntegrityError:
+        except orm_conf.integrity_error:
             raise app.domain.errors.AlreadyExistsError

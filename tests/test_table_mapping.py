@@ -3,12 +3,13 @@ import pathlib
 import pytest
 
 import app
+import app.orm_tool
 from app.domain import models
 from app.orm_tool import table_mapping, table_mapper, engine
 
 @pytest.fixture(scope="session")
 def do_mapping():
-    app.orm_tool.table_mapping.start_mapping()
+    app.orm_tool.start_mapping()
 
 
 def test_start_mapping(do_mapping):

@@ -1,5 +1,6 @@
 import dataclasses
 import pathlib
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy import (
     create_engine,
     Table,
@@ -8,9 +9,10 @@ from sqlalchemy import (
     String,
     DateTime,
     func,
-    orm
+    orm,
 )
 import app.config
+import app.domain.models
 
 db_path = pathlib.Path(__file__).parent.parent / "db/zuzu.db"
 
@@ -19,13 +21,26 @@ session_maker = orm.sessionmaker(bind=engine)
 table_mapper = orm.registry()
 
 
-@dataclasses.dataclass
-class TableConf:
-    table = Table
-    column = Column
-    int_field = Integer
-    str_field = String
-    datetime_field = DateTime
-    now = func.now
+zuz_table = Table(
+    "zuzublik",
+    table_mapper.metadata,
+    Column("id", Integer, primary_key=True, autoincrement=True),
+    Column("title", String(200), index=True, nullable=False),
+    Column("url", String(200), index=True, nullable=False),
+    Column("xpath", String(200), index=True, nullable=False),
+    Column("creation_date", DateTime, server_default=func.now(), nullable=False)
+)
 
-table_conf = TableConf()
+
+@dataclasses.dataclass
+class ORMConf:
+    integrity_error = IntegrityError
+    engine = engine
+    session_maker = session_maker
+
+    @staticmethod
+    def start_mapping():
+        table_mapper.map_imperatively(class_=app.domain.models.Zuzublik, local_table=zuz_table)
+
+
+orm_conf = ORMConf()

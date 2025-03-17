@@ -2,8 +2,11 @@ import telebot
 
 import app.config
 from app.service_layer import app_manager
-from app.auxiliary_services import parser
+from app.auxiliary_services import parser, validation
+from app.service_layer.unit_of_work import UnitOfWork
+from app.orm_tool import orm_conf
 
+orm_conf.start_mapping()
 
 bot = telebot.TeleBot(app.config.config["bot_token"])
 
@@ -29,8 +32,10 @@ def handle_file(message):
     file_id = message.document.file_id
     file = bot.get_file(file_id)
     downloaded_file = bot.download_file(file.file_path)
-    parsed_result = parser.parse_table(table_file=downloaded_file)
-    bot.send_message(message.chat.id, text=f'You uploaded the folowing data: {parsed_result}.')
+    save_res = app_manager.add_zuzublik(
+        file=downloaded_file, parser=parser.parse_table, validator=validation.validate_zuzublik_data, uow=UnitOfWork()
+    )
+    bot.send_message(message.chat.id, text=f'You uploaded the folowing data: {save_res[1]}.')
 
 
 bot.polling(none_stop=True)
