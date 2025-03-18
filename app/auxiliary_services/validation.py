@@ -17,7 +17,10 @@ def validate_data(validation_model: Type[PydanticModel], data: dict[str, str]) -
     try:
         return validation_model.model_validate(data).model_dump(exclude_unset=True)
     except pydantic.ValidationError as e:
-        raise app.domain.errors.ValidationError(e.errors())
+        errors_list = e.errors()
+        for item in errors_list:
+            del item["url"]
+        raise app.domain.errors.ValidationError(errors_list)
 
 
 def validate_zuzublik_data(zuzublik_data: list[dict[str, str]]) -> list[dict[str, str]]:

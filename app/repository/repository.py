@@ -2,9 +2,6 @@ from typing import Any, Protocol, Optional
 
 from app.domain import models
 
-# import app.domain.errors
-# import app.service_layer.app_manager
-
 
 class NotFoundError(Exception):
     pass

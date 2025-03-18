@@ -1,10 +1,12 @@
 import telebot
+from emoji import emojize
 
 import app.config
 from app.service_layer import app_manager
 from app.auxiliary_services import parser, validation
 from app.service_layer.unit_of_work import UnitOfWork
 from app.orm_tool.sql_aclchemy_wrapper import orm_conf
+from app.domain import errors
 
 orm_conf.start_mapping()
 
@@ -32,10 +34,28 @@ def handle_file(message):
     file_id = message.document.file_id
     file = bot.get_file(file_id)
     downloaded_file = bot.download_file(file.file_path)
-    save_res = app_manager.add_zuzublik(
-        file=downloaded_file, parser=parser.parse_table, validator=validation.validate_zuzublik_data, uow=UnitOfWork()
-    )
-    bot.send_message(message.chat.id, text=f'Готово!\nВот что я загрузил:\n {save_res[1]}.')
+    happy_way_reply = ""
+    try:
+        save_res = app_manager.add_zuzublik(
+            file=downloaded_file, parser=parser.parse_table, validator=validation.validate_zuzublik_data,
+            uow=UnitOfWork()
+        )
+        for item in save_res[1]:
+            happy_way_reply += f"{item}\n"
+        bot.send_message(message.chat.id, text=f'Готово! {emojize(":thumbs_up:")}\n\n'
+                                               f'Вот что я загрузил:\n\n{happy_way_reply}.')
+    except (errors.ValidationError, errors.AlreadyExistsError) as e:
+        bot.send_message(message.chat.id, text=f"Ой, кажется, данные в таблице некорректны. "
+                                               f"Не могу загрузить {emojize(':face_with_rolling_eyes:')}\n"
+                                               f"Ниже - подробнее, в чем проблема.\n\n"
+                                               f"Чтобы загрузить исправленную таблицу, нажми "
+                                               f"'Меню' - голубая кнопка внизу.\n\n"
+                                               f"Подробности об ошибке:\n\n{e.message}\n\n"
+                                               f"* type - тип ошибки\n"
+                                               f"* loc - поле с некорректными данными\n"
+                                               f"* msg - суть проблемы\n"
+                                               f"* input - некорректное значение в таблице")
+
 
 
 bot.polling(none_stop=True)

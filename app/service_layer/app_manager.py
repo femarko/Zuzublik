@@ -4,7 +4,6 @@ from app.domain import models
 def add_zuzublik(file, parser, validator, uow) -> tuple[list[int], list[dict[str, str]]]:
     parsed_data = parser(file)
     validated_data = validator(parsed_data)
-
     with uow:
         id_list = []
         for item in validated_data:
