@@ -1,0 +1,7 @@
+tests/
+venv_zuzublik/
+.coverage
+.env
+.gitignore
+incorrect_file.xls
+success_file.xls
