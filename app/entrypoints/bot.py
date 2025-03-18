@@ -8,7 +8,6 @@ from app.service_layer.unit_of_work import UnitOfWork
 from app.orm_tool.sql_aclchemy_wrapper import orm_conf
 from app.domain import errors
 
-orm_conf.start_mapping()
 
 bot = telebot.TeleBot(app.config.config["bot_token"])
 
@@ -57,5 +56,6 @@ def handle_file(message):
                                                f"* input - некорректное значение в таблице")
 
 
-
-bot.polling(none_stop=True)
+if __name__ == '__main__':
+    orm_conf.start_mapping()
+    bot.polling(none_stop=True)
