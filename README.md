@@ -83,4 +83,8 @@ $ python3 -m app.entrypoints.bot
 интерфейсов приложения:
     - [bot.py](https://github.com/femarko/Zuzublik/blob/main/app/entrypoints/bot.py): телеграм-бот
 
-**[Zuzublik / tests](https://github.com/femarko/Zuzublik/tree/main/tests)**: тесты некоторых элементов приложения (```Pytest```).
+**[Zuzublik / tests](https://github.com/femarko/Zuzublik/tree/main/tests)**: тесты некоторых элементов приложения 
+(```Pytest```)
+
+**[Zuzublik / excel_files](https://github.com/femarko/Zuzublik/tree/main/excel_files):** файлы Excel с корректными 
+и некорректными данными для тестирования ответов телеграм-бота

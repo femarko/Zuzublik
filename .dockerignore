@@ -3,5 +3,5 @@ venv_zuzublik/
 .coverage
 .env
 .gitignore
-incorrect_file.xls
-success_file.xls
+excel_files/incorrect_file.xls
+excel_files/success_file.xls
