@@ -10,6 +10,7 @@ db_path = pathlib.Path(__file__).parent.parent / "db/zuzu.db"
 engine = create_engine(f"sqlite:///{db_path}")
 session_maker = orm.sessionmaker(bind=engine)
 table_mapper = orm.registry()
+
 zuz_table = Table(
     "zuzublik",
     table_mapper.metadata,
