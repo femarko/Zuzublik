@@ -32,5 +32,8 @@ class ORMConf:
     def start_mapping():
         table_mapper.map_imperatively(class_=app.domain.models.Zuzublik, local_table=zuz_table)
 
+    def create_tables(self):
+        table_mapper.metadata.create_all(bind=self.engine)
+
 
 orm_conf = ORMConf()
