@@ -3,7 +3,7 @@
 - создать новый телеграм-бот и получить токен: [@BotFather](https://t.me/BotFather)
 - перейти в директорию, куда планируется поместить приложение
 - находясь в этой директории:
-  - клонировать репозиторий, содержащий ранее полученный токен:
+  - клонировать репозиторий:
     ```bas
     $ git clone git@github.com:femarko/Zuzublik.git
     ```
@@ -46,6 +46,7 @@ $ python3 -m app.entrypoints.bot
   - вместо ```SQLAlchemy``` использовать "сырой" SQL
   - вместо ```SQLite``` использовать ```PostgreSQL```
 ### Структура приложения:
+**[Zuzublik/app](https://github.com/femarko/Zuzublik/tree/main/app):**
   - [domain](https://github.com/femarko/Zuzublik/tree/main/app/domain) - предметная 
 область:
     - [models.py](https://github.com/femarko/Zuzublik/blob/main/app/domain/models.py): 
@@ -64,4 +65,22 @@ $ python3 -m app.entrypoints.bot
 все настройки для ```SQLAlchemy``` + мэппинг классов python из ```models.py``` с таблицами БД
   - [auxiliary_services](https://github.com/femarko/Zuzublik/tree/main/app/auxiliary_services) - 
 все вспомогательные сервисы:
-    - 
+    - [table_parser.py](https://github.com/femarko/Zuzublik/blob/main/app/auxiliary_services/table_parser.py): 
+    парсер таблицы с помощью ```Pandas```
+    - [validation.py](https://github.com/femarko/Zuzublik/blob/main/app/auxiliary_services/validation.py): 
+сервис валидации данных с помощью ```Pydantic```
+    - [service_layer](https://github.com/femarko/Zuzublik/tree/main/app/service_layer) - 
+слой, обеспечивающий взаимодействие элементов приложения между собой:
+      - [unit_of_work.py](https://github.com/femarko/Zuzublik/blob/main/app/service_layer/unit_of_work.py): 
+абстракция сеанса работы с БД и точка входа в [репозиторий](https://github.com/femarko/Zuzublik/tree/main/app/repository)
+      - [app_manager.py](https://github.com/femarko/Zuzublik/blob/main/app/service_layer/app_manager.py): 
+здесь находятся функции (в данном случае она одна), которые принимают входящие данные, необходимые 
+зависимости, вызывают нужные службы, в т.ч. ```unit_of_work```, фиксируют изменения в БД, возвращают результат 
+работы вызванных служб
+  - [entrypoints](https://github.com/femarko/Zuzublik/tree/main/app/entrypoints) - пакет для 
+интерфейсов приложения:
+    - [bot.py](https://github.com/femarko/Zuzublik/blob/main/app/entrypoints/bot.py): телеграм-бот
+
+**[Zuzublik/tests](https://github.com/femarko/Zuzublik/tree/main/tests)**
+
+Тесты некоторых элементов приложения (```Pytest```).
