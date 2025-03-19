@@ -3,7 +3,7 @@ from emoji import emojize
 
 import app.config
 from app.service_layer import app_manager
-from app.auxiliary_services import parser, validation
+from app.auxiliary_services import table_parser, validation
 from app.service_layer.unit_of_work import UnitOfWork
 from app.orm_tool.sql_aclchemy_wrapper import orm_conf
 from app.domain import errors
@@ -45,7 +45,7 @@ def handle_file(message):
     happy_way_reply = ""
     try:
         save_res = app_manager.add_zuzublik(
-            file=downloaded_file, parser=parser.parse_table, validator=validation.validate_zuzublik_data,
+            file=downloaded_file, parser=table_parser.parse_table, validator=validation.validate_zuzublik_data,
             uow=UnitOfWork()
         )
         for item in save_res[1]:
