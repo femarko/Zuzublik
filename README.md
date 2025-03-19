@@ -46,7 +46,7 @@ $ python3 -m app.entrypoints.bot
   - вместо ```SQLAlchemy``` использовать "сырой" SQL
   - вместо ```SQLite``` использовать ```PostgreSQL```
 ### Структура приложения:
-**[Zuzublik/app](https://github.com/femarko/Zuzublik/tree/main/app):**
+**[Zuzublik / app](https://github.com/femarko/Zuzublik/tree/main/app):**
   - [domain](https://github.com/femarko/Zuzublik/tree/main/app/domain) - предметная 
 область:
     - [models.py](https://github.com/femarko/Zuzublik/blob/main/app/domain/models.py): 
@@ -55,7 +55,7 @@ $ python3 -m app.entrypoints.bot
     кастомные классы исключений, использующиеся в приложении как часть бизнес-логики
   - [repository](https://github.com/femarko/Zuzublik/tree/main/app/repository): 
 абстракция постоянного хранилища данных
-  - [db](https://github.com/femarko/Zuzublik/tree/main/app/db) - пакет лоя базы данных:
+  - [db](https://github.com/femarko/Zuzublik/tree/main/app/db) - пакет для базы данных:
     - [create_db.py](https://github.com/femarko/Zuzublik/blob/main/app/db/create_db.py): 
     скрипт создания базы данных
     - zuzu.db - файл базы данных SQLite (создается при выполнении скрипта создания БД)
@@ -74,13 +74,13 @@ $ python3 -m app.entrypoints.bot
       - [unit_of_work.py](https://github.com/femarko/Zuzublik/blob/main/app/service_layer/unit_of_work.py): 
 абстракция сеанса работы с БД и точка входа в [репозиторий](https://github.com/femarko/Zuzublik/tree/main/app/repository)
       - [app_manager.py](https://github.com/femarko/Zuzublik/blob/main/app/service_layer/app_manager.py): 
-здесь находятся функции (в данном случае она одна), которые принимают входящие данные, необходимые 
-зависимости, вызывают нужные службы, в т.ч. ```unit_of_work```, фиксируют изменения в БД, возвращают результат 
-работы вызванных служб
+функция, которая:
+        - принимает входящие данные и необходимые зависимости
+        - вызывает нужные службы, в т.ч. ```unit_of_work```
+        - фиксирует изменения в БД
+        - возвращает результат
   - [entrypoints](https://github.com/femarko/Zuzublik/tree/main/app/entrypoints) - пакет для 
 интерфейсов приложения:
     - [bot.py](https://github.com/femarko/Zuzublik/blob/main/app/entrypoints/bot.py): телеграм-бот
 
-**[Zuzublik/tests](https://github.com/femarko/Zuzublik/tree/main/tests)**
-
-Тесты некоторых элементов приложения (```Pytest```).
+**[Zuzublik / tests](https://github.com/femarko/Zuzublik/tree/main/tests)**: тесты некоторых элементов приложения (```Pytest```).
