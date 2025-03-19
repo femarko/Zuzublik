@@ -4,7 +4,8 @@ import pathlib
 from sqlalchemy import create_engine, orm, Table, Column, Integer, String, DateTime, func
 from sqlalchemy.exc import IntegrityError
 
-import app.domain.models
+import src.app.domain.models
+
 
 db_path = pathlib.Path(__file__).parent.parent / "db/zuzu.db"
 engine = create_engine(f"sqlite:///{db_path}")
@@ -30,7 +31,7 @@ class ORMConf:
 
     @staticmethod
     def start_mapping():
-        table_mapper.map_imperatively(class_=app.domain.models.Zuzublik, local_table=zuz_table)
+        table_mapper.map_imperatively(class_=src.app.domain.models.Zuzublik, local_table=zuz_table)
 
     def create_tables(self):
         table_mapper.metadata.create_all(bind=self.engine)

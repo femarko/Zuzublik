@@ -1,15 +1,14 @@
 import telebot
 from emoji import emojize
 
-import app.config
-from app.service_layer import app_manager
-from app.auxiliary_services import table_parser, validation
-from app.service_layer.unit_of_work import UnitOfWork
-from app.orm_tool.sql_aclchemy_wrapper import orm_conf
-from app.domain import errors
+import src.app.config
+from src.app.service_layer import app_manager
+from src.app.auxiliary_services import table_parser, validation
+from src.app.service_layer.unit_of_work import UnitOfWork
+from src.app.orm_tool.sql_aclchemy_wrapper import orm_conf
+from src.app.domain import errors
 
-
-bot = telebot.TeleBot(app.config.config["bot_token"])
+bot = telebot.TeleBot(src.app.config.config["bot_token"])
 
 smth_went_wrong_message = f'Ой, что-то пошло не так...{emojize(":face_with_rolling_eyes:")}\n\nВозможно, неверный '\
                             'формат файла. Я умею работать только с файлами Excel.\n\nЧтобы попробовать снова, '\

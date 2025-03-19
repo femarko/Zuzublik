@@ -1,6 +1,6 @@
-from typing import Any, Protocol, Optional
+from typing import Any, Protocol
 
-from app.domain import models
+from src.app.domain import models
 
 
 class NotFoundError(Exception):

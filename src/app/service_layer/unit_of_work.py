@@ -1,8 +1,8 @@
-import app.orm_tool.sql_aclchemy_wrapper
-from app.orm_tool.sql_aclchemy_wrapper import orm_conf
+import src.app.orm_tool.sql_aclchemy_wrapper
+from src.app.orm_tool.sql_aclchemy_wrapper import orm_conf
 
-import app.domain.errors
-from app.repository.repository import RepoProto, ZuzublikRepository
+import src.app.domain.errors
+from src.app.repository.repository import RepoProto, ZuzublikRepository
 
 
 class UnitOfWork:
@@ -27,4 +27,4 @@ class UnitOfWork:
         try:
             self.session.commit()
         except orm_conf.integrity_error:
-            raise app.domain.errors.AlreadyExistsError
+            raise src.app.domain.errors.AlreadyExistsError

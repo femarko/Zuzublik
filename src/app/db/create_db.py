@@ -1,7 +1,7 @@
 import sqlite3
 import pathlib
 
-from app.orm_tool.sql_aclchemy_wrapper import orm_conf
+from src.app.orm_tool.sql_aclchemy_wrapper import orm_conf
 
 
 db_path = pathlib.Path(__file__).parent / "zuzu.db"

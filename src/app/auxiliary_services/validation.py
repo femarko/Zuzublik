@@ -1,7 +1,7 @@
 import pydantic
 from typing import TypeVar, Type, Optional
 
-import app.domain.errors
+import src.app.domain.errors
 
 
 PydanticModel = TypeVar("PydanticModel", bound=pydantic.BaseModel)
@@ -20,7 +20,7 @@ def validate_data(validation_model: Type[PydanticModel], data: dict[str, str]) -
         errors_list = e.errors()
         for item in errors_list:
             del item["url"]
-        raise app.domain.errors.ValidationError(errors_list)
+        raise src.app.domain.errors.ValidationError(errors_list)
 
 
 def validate_zuzublik_data(zuzublik_data: list[dict[str, str]]) -> list[dict[str, str]]:

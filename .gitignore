@@ -3,7 +3,6 @@ venv_zuzublik/
 __pycache__/
 .idea/
 .coverage
-app/db/zuzu.db
+src/app/db/zuzu.db
 **/bot_var.py
 **/let_me_test_this_bot.py
-tests/

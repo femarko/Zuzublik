@@ -1,4 +1,4 @@
-from app.domain import models
+from src.app.domain import models
 
 
 def test_create_zuzublik():

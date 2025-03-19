@@ -1,4 +1,4 @@
-from app.domain import models
+from src.app.domain import models
 
 
 def add_zuzublik(file, parser, validator, uow) -> tuple[list[int], list[dict[str, str]]]:
