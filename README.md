@@ -19,13 +19,11 @@
 
 ### Запуск в докер-контейнере
 ```bash
-$ cd Zuzublik
 $ docker build . --tag=zuzublik_bot
-$ docker run --env-file .env zuzublik_bot:latest
+$ docker run --env-file .env --name zuzublik_bot zuzublik_bot:latest
 ```
 ### Запуск локально
 ```bash
-$ cd Zuzublik
 $ python3 venv venv_zuzublik_bot
 $ source venv_zuzublik_bot/bin/activate  # Linux
 $ source venv_zuzublik_bot/Scripts/activate  # Windows
