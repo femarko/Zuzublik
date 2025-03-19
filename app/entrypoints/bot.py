@@ -11,6 +11,11 @@ from app.domain import errors
 
 bot = telebot.TeleBot(app.config.config["bot_token"])
 
+smth_went_wrong_message = f'Ой, что-то пошло не так...{emojize(":face_with_rolling_eyes:")}\n\nВозможно, неверный '\
+                            'формат файла. Я умею работать только с файлами Excel.\n\nЧтобы попробовать снова, '\
+                                                                         'нажми "Меню" - голубая кнопка внизу.'
+
+
 @bot.message_handler(commands=['start'])
 def start(message):
     markup = telebot.types.InlineKeyboardMarkup()
@@ -30,7 +35,11 @@ def callback_upload_excel(call):
 
 
 def handle_file(message):
-    file_id = message.document.file_id
+    try:
+        file_id = message.document.file_id
+    except AttributeError:
+        bot.send_message(message.chat.id, text=smth_went_wrong_message)
+        return
     file = bot.get_file(file_id)
     downloaded_file = bot.download_file(file.file_path)
     happy_way_reply = ""
@@ -43,7 +52,7 @@ def handle_file(message):
             happy_way_reply += f"{item}\n"
         bot.send_message(message.chat.id, text=f'Готово! {emojize(":thumbs_up:")}\n\n'
                                                f'Вот что я загрузил:\n\n{happy_way_reply}.')
-    except (errors.ValidationError, errors.AlreadyExistsError) as e:
+    except errors.ValidationError as e:
         bot.send_message(message.chat.id, text=f"Ой, кажется, данные в таблице некорректны. "
                                                f"Не могу загрузить {emojize(':face_with_rolling_eyes:')}\n"
                                                f"Ниже - подробнее, в чем проблема.\n\n"
@@ -54,6 +63,9 @@ def handle_file(message):
                                                f"* loc - поле с некорректными данными\n"
                                                f"* msg - суть проблемы\n"
                                                f"* input - некорректное значение в таблице")
+    except errors.SmthWentWrong:
+        bot.send_message(message.chat.id, text=smth_went_wrong_message)
+
 
 
 if __name__ == '__main__':

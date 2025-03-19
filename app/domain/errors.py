@@ -10,3 +10,8 @@ class AlreadyExistsError(Exception):
 class ValidationError(Exception):
     def __init__(self, message):
         self.message = message
+
+
+class SmthWentWrong(Exception):
+    def __init__(self, message: Optional[str] = None):
+        self.message = message
