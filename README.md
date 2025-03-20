@@ -20,7 +20,7 @@
 ### Запуск в докер-контейнере
 ```bash
 $ docker build . --tag=zuzublik_bot
-$ docker run --env-file .env --name zuzublik_bot zuzublik_bot:latest
+$ docker run -d --env-file .env --name zuzublik_bot zuzublik_bot:latest
 ```
 ### Запуск локально
 ```bash
