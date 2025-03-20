@@ -28,8 +28,8 @@ $ python3 venv venv_zuzublik_bot
 $ source venv_zuzublik_bot/bin/activate  # Linux
 $ source venv_zuzublik_bot/Scripts/activate  # Windows
 $ pip install -r requirements.txt
-$ python3 -m app.dp.create_db
-$ python3 -m app.entrypoints.bot
+$ python3 -m src.app.dp.create_db
+$ python3 -m src.app.entrypoints.bot
 ```
 ---
 ## Подход к реализации и структура приложения
