@@ -3,5 +3,6 @@ venv_zuzublik/
 .coverage
 .env
 .gitignore
-excel_files/incorrect_file.xls
-excel_files/success_file.xls
+excel_files/
+Dockerfile
+README.md
