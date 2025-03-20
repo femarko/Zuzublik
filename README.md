@@ -44,42 +44,42 @@ $ python3 -m app.entrypoints.bot
   - вместо ```SQLAlchemy``` использовать "сырой" SQL
   - вместо ```SQLite``` использовать ```PostgreSQL```
 ### Структура приложения:
-**[Zuzublik / app](https://github.com/femarko/Zuzublik/tree/main/app):**
-  - [domain](https://github.com/femarko/Zuzublik/tree/main/app/domain) - предметная 
+**[Zuzublik / src / app](https://github.com/femarko/Zuzublik/tree/main/src/app):**
+  - [domain](https://github.com/femarko/Zuzublik/tree/main/src/app/domain) - предметная 
 область:
-    - [models.py](https://github.com/femarko/Zuzublik/blob/main/app/domain/models.py): 
+    - [models.py](https://github.com/femarko/Zuzublik/blob/main/src/app/domain/models.py): 
 класс ```Zuzublik``` и функция, создающая экземпляр этого класса
-    - [errors.py](https://github.com/femarko/Zuzublik/blob/main/app/domain/errors.py): 
+    - [errors.py](https://github.com/femarko/Zuzublik/blob/main/src/app/domain/errors.py): 
     кастомные классы исключений, использующиеся в приложении как часть бизнес-логики
-  - [repository](https://github.com/femarko/Zuzublik/tree/main/app/repository): 
+  - [repository](https://github.com/femarko/Zuzublik/tree/main/src/app/repository): 
 абстракция постоянного хранилища данных
-  - [db](https://github.com/femarko/Zuzublik/tree/main/app/db) - пакет для базы данных:
-    - [create_db.py](https://github.com/femarko/Zuzublik/blob/main/app/db/create_db.py): 
+  - [db](https://github.com/femarko/Zuzublik/tree/main/src/app/db) - пакет для базы данных:
+    - [create_db.py](https://github.com/femarko/Zuzublik/blob/main/src/app/db/create_db.py): 
     скрипт создания базы данных
     - zuzu.db - файл базы данных SQLite (создается при выполнении скрипта создания БД)
-  - [orm_tool](https://github.com/femarko/Zuzublik/tree/main/app/orm_tool) - пакет 
+  - [orm_tool](https://github.com/femarko/Zuzublik/tree/main/src/app/orm_tool) - пакет 
 для object-relational mapper:
-    - [sql_aclchemy_wrapper.py](https://github.com/femarko/Zuzublik/blob/main/app/orm_tool/sql_aclchemy_wrapper.py): 
+    - [sql_aclchemy_wrapper.py](https://github.com/femarko/Zuzublik/blob/main/src/app/orm_tool/sql_aclchemy_wrapper.py): 
 все настройки для ```SQLAlchemy``` + мэппинг классов python из ```models.py``` с таблицами БД
-  - [auxiliary_services](https://github.com/femarko/Zuzublik/tree/main/app/auxiliary_services) - 
+  - [auxiliary_services](https://github.com/femarko/Zuzublik/tree/main/src/app/auxiliary_services) - 
 все вспомогательные сервисы:
-    - [table_parser.py](https://github.com/femarko/Zuzublik/blob/main/app/auxiliary_services/table_parser.py): 
+    - [table_parser.py](https://github.com/femarko/Zuzublik/blob/main/src/app/auxiliary_services/table_parser.py): 
     парсер таблицы с помощью ```Pandas```
-    - [validation.py](https://github.com/femarko/Zuzublik/blob/main/app/auxiliary_services/validation.py): 
+    - [validation.py](https://github.com/femarko/Zuzublik/blob/main/src/app/auxiliary_services/validation.py): 
 сервис валидации данных с помощью ```Pydantic```
-    - [service_layer](https://github.com/femarko/Zuzublik/tree/main/app/service_layer) - 
+    - [service_layer](https://github.com/femarko/Zuzublik/tree/main/src/app/service_layer) - 
 слой, обеспечивающий взаимодействие элементов приложения между собой:
-      - [unit_of_work.py](https://github.com/femarko/Zuzublik/blob/main/app/service_layer/unit_of_work.py): 
-абстракция сеанса работы с БД и точка входа в [репозиторий](https://github.com/femarko/Zuzublik/tree/main/app/repository)
-      - [app_manager.py](https://github.com/femarko/Zuzublik/blob/main/app/service_layer/app_manager.py): 
+      - [unit_of_work.py](https://github.com/femarko/Zuzublik/blob/main/src/app/service_layer/unit_of_work.py): 
+абстракция сеанса работы с БД и точка входа в [репозиторий](https://github.com/femarko/Zuzublik/tree/main/src/app/repository)
+      - [app_manager.py](https://github.com/femarko/Zuzublik/blob/main/src/app/service_layer/app_manager.py): 
 функция, которая:
         - принимает входящие данные и необходимые зависимости
         - вызывает нужные службы, в т.ч. ```unit_of_work```
         - фиксирует изменения в БД
         - возвращает результат
-  - [entrypoints](https://github.com/femarko/Zuzublik/tree/main/app/entrypoints) - пакет для 
+  - [entrypoints](https://github.com/femarko/Zuzublik/tree/main/src/app/entrypoints) - пакет для 
 интерфейсов приложения:
-    - [bot.py](https://github.com/femarko/Zuzublik/blob/main/app/entrypoints/bot.py): телеграм-бот
+    - [bot.py](https://github.com/femarko/Zuzublik/blob/main/src/app/entrypoints/bot.py): телеграм-бот
 
 **[Zuzublik / tests](https://github.com/femarko/Zuzublik/tree/main/tests)**: тесты некоторых элементов приложения 
 (```Pytest```)
